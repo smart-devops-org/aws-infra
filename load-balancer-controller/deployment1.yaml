@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mario
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mario
+  namespace: mario
+  labels:
+    app: mario
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mario
+  template:
+    metadata:
+      labels:
+        app: mario
+    spec:
+      containers:
+        - name: mario
+          image: pengbai/docker-supermario
+          resources:
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+            requests:
+              cpu: "100m"
+              memory: "100Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mario
+  namespace: mario
+spec:
+  selector:
+    app: mario
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+  type: NodePort

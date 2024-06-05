@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mario-ingress
+  namespace: mario
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/load-balancer-name: system-alb
+    alb.ingress.kubernetes.io/group.name: "system-alb-group"
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:221370546661:certificate/6f73fffc-dc0f-4c85-a295-147c64be7fcb
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
+spec:
+  ingressClassName: alb
+  rules:
+    - host: mario.smartseo.kr
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: mario
+                port:
+                  number: 80
