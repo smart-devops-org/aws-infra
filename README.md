@@ -486,8 +486,6 @@ kubectl logs -f -n karpenter -l app.kubernetes.io/name=karpenter -c controller
 
 <img width="998" alt="image" src="https://github.com/smart-devops-org/devops-system/assets/46982752/8bd9a986-01aa-4228-99d8-2b1c6ab68248">
 
-## Scale out 테스트
-
 ## karpenter 가 생성할 수 있는 노드와 노드에서 실행될 수 있는 파드에 대한 제약 조건 설정
 
 ```
